@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { useState, useEffect } from 'react';
+import FileUpload from './FileUpload';
+import FileList from './FileList';
 
-function App() {
+const App = () => {
+  const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/files')
+      .then((res) => res.json())
+      .then(setFiles);
+  }, []);
+
+  const onFileUpload = (newFile) => {
+    setFiles([...files, newFile]);
+  };
+
+  const onFileDelete = (deletedFile) => {
+    setFiles(files.filter((file) => file !== deletedFile));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>File Manager</h1>
+      <FileUpload onFileUpload={onFileUpload} />
+      <FileList files={files} onFileDelete={onFileDelete} />
     </div>
   );
-}
+};
 
 export default App;
