@@ -107,13 +107,13 @@ app.use(cors());
 app.use(express.json());
 
 // Upload a file
-app.post('/api/upload', upload.single('file'), (req, res) => {
+app.post('/api/product-imports', upload.single('file'), (req, res) => {
   // You can perform any additional processing of the uploaded file here.
   res.json(req.file);
 });
 
 // Get a list of uploaded files
-app.get('/api/files', (req, res) => {
+app.get('/api/product-imports/files', (req, res) => {
   fs.readdir(uploadFolder, (err, files) => {
     if (err) {
       res.status(500).send(err);
@@ -124,7 +124,7 @@ app.get('/api/files', (req, res) => {
 });
 
 // Delete a file
-app.delete('/api/files/:filename', (req, res) => {
+app.delete('/api/product-imports/files/:filename', (req, res) => {
   const filePath = path.join(uploadFolder, req.params.filename);
   fs.unlink(filePath, (err) => {
     if (err) {
@@ -135,11 +135,11 @@ app.delete('/api/files/:filename', (req, res) => {
   });
 });
 
-// Placeholder function for Mongoose data seeding
-app.post('/api/files/seed/:filename', (req, res) => {
-  // Implement your Mongoose data seeding logic here
-  res.send(`Data seeding for file ${req.params.filename} started.`);
-});
+// // Placeholder function for Mongoose data seeding
+// app.post('/api/files/seed/:filename', (req, res) => {
+//   // Implement your Mongoose data seeding logic here
+//   res.send(`Data seeding for file ${req.params.filename} started.`);
+// });
 
 app.listen(3001, () => {
   console.log('Server running on port 3001');
