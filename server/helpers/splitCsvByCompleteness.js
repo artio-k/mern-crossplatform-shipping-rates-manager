@@ -1,9 +1,11 @@
+
+
 // csv_validation_helper.js
 const fs = require('fs');
 const csvParser = require('csv-parser');
 const createCsvWriter = require('fast-csv').write;
 
-function separateCsv(inputFilePath, completeOutputFilePath, incompleteOutputFilePath) {
+function splitCsvByCompleteness(inputFilePath, completeOutputFilePath, incompleteOutputFilePath) {
   const completeRows = [];
   const incompleteRows = [];
 
@@ -46,4 +48,4 @@ function separateCsv(inputFilePath, completeOutputFilePath, incompleteOutputFile
     });
 }
 
-module.exports = separateCsv;
+module.exports = splitCsvByCompleteness;
